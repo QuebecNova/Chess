@@ -161,11 +161,13 @@ const rook = {
             console.log('Eat!');
             e.target.parentNode.appendChild(rookSelfNode);  
             e.target.remove();
+            renderPiece.switchTurn();
             rook.clearEventListeners();
         } else if (canMove) {
             //if piece can move and pieceField have no pieces
             console.log('Moves!');
             e.target.appendChild(rookSelfNode);
+            renderPiece.switchTurn();
             rook.clearEventListeners();
         } else if (!(e.target.hasChildNodes()) && e.target !== rookSelfNode) {
             rook.clearEventListeners();

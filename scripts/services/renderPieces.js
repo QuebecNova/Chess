@@ -9,6 +9,8 @@ const renderPiece = {
 
     pieces: {},
 
+    turn: 'white',
+
     render() {
         renderPiece.placePiece();
         renderPiece.addClickEvents();
@@ -54,41 +56,45 @@ const renderPiece = {
 
     possibleMoves(e) {
         const choosenPiece = e.target;
-        if (choosenPiece.getAttribute('class') === 'whiteRook placedPiece' || choosenPiece.getAttribute('class') === 'blackRook placedPiece') {
+        if (choosenPiece.getAttribute('class') === 'whiteRook placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackRook placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             rook.availableRookMoves(choosenPiece);
             choosenPiece.addEventListener('click', rook.clearEventListeners);
         }
-        if (choosenPiece.getAttribute('class') === 'whiteBishop placedPiece' || choosenPiece.getAttribute('class') === 'blackBishop placedPiece') {
+        if (choosenPiece.getAttribute('class') === 'whiteBishop placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackBishop placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             bishop.availableBishopMoves(choosenPiece);
             choosenPiece.addEventListener('click', bishop.clearEventListeners);
         }
 
-        if (choosenPiece.getAttribute('class') === 'whiteKnight placedPiece' || choosenPiece.getAttribute('class') === 'blackKnight placedPiece') {
+        if (choosenPiece.getAttribute('class') === 'whiteKnight placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackKnight placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             knight.availableKnightMoves(choosenPiece);
             choosenPiece.addEventListener('click', knight.clearEventListeners);
         }
 
-        if (choosenPiece.getAttribute('class') === 'whitePawn placedPiece' || choosenPiece.getAttribute('class') === 'blackPawn placedPiece') {
+        if (choosenPiece.getAttribute('class') === 'whitePawn placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackPawn placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             pawn.availablePawnMoves(choosenPiece);
             choosenPiece.addEventListener('click', pawn.clearEventListeners);
         }
 
-        if (choosenPiece.getAttribute('class') === 'whiteQueen placedPiece' || choosenPiece.getAttribute('class') === 'blackQueen placedPiece') {
+        if (choosenPiece.getAttribute('class') === 'whiteQueen placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackQueen placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             queen.availableQueenMoves(choosenPiece);
             choosenPiece.addEventListener('click', queen.clearEventListeners);
         }
 
-        if (choosenPiece.getAttribute('class') === 'whiteKing placedPiece' || choosenPiece.getAttribute('class') === 'blackKing placedPiece') {
+        if (choosenPiece.getAttribute('class') === 'whiteKing placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackKing placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             king.availableKingMoves(choosenPiece);
             choosenPiece.addEventListener('click', king.clearEventListeners);
         }
     
+    },
+
+    switchTurn() {
+        renderPiece.turn === 'white' ? renderPiece.turn = 'black' : renderPiece.turn = 'white';
     },
 
     placeBoxNumbers() {
