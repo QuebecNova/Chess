@@ -15,9 +15,9 @@ const initialPosition = {
     e7: 'blackPawn',
     f7: 'blackPawn',
     g7: 'blackPawn',
-    h7: 'blackPawn',
+    h7: 'blackPawn',*/
 
-    a2: 'whitePawn',
+    /*a2: 'whitePawn',
     b2: 'whitePawn',
     c2: 'whitePawn',
     d2: 'whitePawn',

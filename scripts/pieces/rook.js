@@ -1,5 +1,5 @@
-import {alphPosOut} from "../services/alphabetPositions.js";
-import {alphPosIn} from "../services/alphabetPositions.js";
+import {alphPosOut} from "./alphabetPositions.js";
+import {alphPosIn} from "./alphabetPositions.js";
 import renderPiece from "../services/renderPieces.js";
 
 const rook = {
@@ -72,6 +72,7 @@ const rook = {
             colField.style.backgroundColor = 'black';
             rook.possibleMoves.push(colField);
         }
+        
         //For rows
         const rowArr = [];
         let rowHighest = '';

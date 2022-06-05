@@ -4,7 +4,7 @@ class Piece {
         const parentNode = choosenPiece.closest('.pieceField');
         const position = parentNode.getAttribute('id');
         const fullType = choosenPiece.getAttribute('class').replace(' placedPiece', '');
-        const type = choosenPiece.getAttribute('class').replace(' placedPiece', '').slice(5, 10);
+        const type = choosenPiece.getAttribute('class').replace(' placedPiece', '').slice(5, 15);
         const color = choosenPiece.getAttribute('class').slice(0, 5);
         const selfNode = choosenPiece;
 

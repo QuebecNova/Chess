@@ -1,5 +1,5 @@
-import {alphPosOut} from "../services/alphabetPositions.js";
-import {alphPosIn} from "../services/alphabetPositions.js";
+import {alphPosOut} from "./alphabetPositions.js";
+import {alphPosIn} from "./alphabetPositions.js";
 import renderPiece from "../services/renderPieces.js";
 
 
