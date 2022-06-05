@@ -69,7 +69,7 @@ const rook = {
 
         for (const col in filteredColArr) {
             const colField = document.querySelector(`#${filteredColArr[col]}`);
-            colField.style.backgroundColor = 'black';
+            colField.style.backgroundColor = 'rgba(30,150,30,0.4)';
             rook.possibleMoves.push(colField);
         }
         
@@ -126,7 +126,7 @@ const rook = {
 
         for (const row in filteredRowArr) {
             const rowField = document.querySelector(`#${filteredRowArr[row]}`);
-            rowField.style.backgroundColor = 'black';
+            rowField.style.backgroundColor = 'rgba(30,150,30,0.4)';
             rook.possibleMoves.push(rowField);
         }
 

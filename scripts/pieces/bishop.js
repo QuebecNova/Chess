@@ -79,7 +79,7 @@ const bishop = {
 
         for (const cell in filteredBRTLArr) {
             const cellField = document.querySelector(`#${filteredBRTLArr[cell]}`);
-            cellField.style.backgroundColor = 'black';
+            cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
             bishop.possibleMoves.push(cellField);
         }
 
@@ -152,7 +152,7 @@ const bishop = {
 
         for (const cell in filteredBLTRArr) {
             const cellField = document.querySelector(`#${filteredBLTRArr[cell]}`);
-            cellField.style.backgroundColor = 'black';
+            cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
             bishop.possibleMoves.push(cellField);
         }
 

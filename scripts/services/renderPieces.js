@@ -2,6 +2,7 @@ import piecesImages from "./piecesImages.js";
 import initialPosition from "./initialPositionChess.js";
 import rook from "../pieces/rook.js";
 import bishop from "../pieces/bishop.js";
+import queen from "../pieces/queen.js";
 import Piece from "../pieces/Piece.js";
 import chessConfig from "../configs/chessConfig.js";
 
