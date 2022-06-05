@@ -62,8 +62,7 @@ const bishop = {
 
             BRTLArr.push(diagonalBRTL);
         }
-        console.log(diagonalBRTLHighest);
-        console.log(diagonalBRTLHighestSecond);
+
         if (!diagonalBRTLHighest && diagonalBRTLHighest !== 0 && diagonalBRTLHighestSecond) {
             diagonalBRTLHighest = diagonalBRTLHighestSecond;
         } else if (diagonalBRTLHighest > diagonalBRTLHighestSecond && diagonalBRTLHighestSecond) {
