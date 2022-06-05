@@ -155,7 +155,7 @@ const rook = {
 
         if (pickedRookColorSameAsTarget && e.target !== rookSelfNode) {
             //if e.target is piece with same color (delete all eventListeners)
-            console.log('same color of rook!');
+            console.log('same color as rook!');
             rook.clearEventListeners();
         } else if (!(pickedRookColorSameAsTarget) && canMove && e.target.getAttribute('class').includes('placedPiece')) {
             //if e.target is piece with another color (eat piece function)

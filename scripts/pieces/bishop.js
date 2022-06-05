@@ -181,7 +181,7 @@ const bishop = {
 
         if (pickedBishopColorSameAsTarget && e.target !== bishopSelfNode) {
             //if e.target is piece with same color (delete all eventListeners)
-            console.log('same color of bishop!');
+            console.log('same color as bishop!');
             bishop.clearEventListeners();
         } else if (!(pickedBishopColorSameAsTarget) && canMove && e.target.getAttribute('class').includes('placedPiece')) {
             //if e.target is piece with another color (eat piece function)

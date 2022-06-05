@@ -300,7 +300,7 @@ const queen = {
 
         if (pickedQueenColorSameAsTarget && e.target !== queenSelfNode) {
             //if e.target is piece with same color (delete all eventListeners)
-            console.log('same color of queen!');
+            console.log('same color as queen!');
             queen.clearEventListeners();
         } else if (!(pickedQueenColorSameAsTarget) && canMove && e.target.getAttribute('class').includes('placedPiece')) {
             //if e.target is piece with another color (eat piece function)
