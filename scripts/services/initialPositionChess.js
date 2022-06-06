@@ -8,23 +8,23 @@ const initialPosition = {
     g8: 'blackKnight',
     h8: 'blackRook',
 
-    /*a7: 'blackPawn',
+    a7: 'blackPawn',
     b7: 'blackPawn',
     c7: 'blackPawn',
     d7: 'blackPawn',
     e7: 'blackPawn',
     f7: 'blackPawn',
     g7: 'blackPawn',
-    h7: 'blackPawn',*/
+    h7: 'blackPawn',
 
-    /*a2: 'whitePawn',
+    a2: 'whitePawn',
     b2: 'whitePawn',
     c2: 'whitePawn',
     d2: 'whitePawn',
     e2: 'whitePawn',
     f2: 'whitePawn',
     g2: 'whitePawn',
-    h2: 'whitePawn',*/
+    h2: 'whitePawn',
 
     a1: 'whiteRook',
     b1: 'whiteKnight',
