@@ -63,29 +63,34 @@ const renderPiece = {
         if (choosenPiece.getAttribute('class') === 'whiteRook placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackRook placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             rook.availableRookMoves(choosenPiece);
+            document.querySelector('.chessboard').addEventListener('click', rook.canMove);
             choosenPiece.addEventListener('click', rook.clearEventListeners);
         }
         if (choosenPiece.getAttribute('class') === 'whiteBishop placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackBishop placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             bishop.availableBishopMoves(choosenPiece);
+            document.querySelector('.chessboard').addEventListener('click', bishop.canMove);
             choosenPiece.addEventListener('click', bishop.clearEventListeners);
         }
 
         if (choosenPiece.getAttribute('class') === 'whiteKnight placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackKnight placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             knight.availableKnightMoves(choosenPiece);
+            document.querySelector('.chessboard').addEventListener('click', knight.canMove);
             choosenPiece.addEventListener('click', knight.clearEventListeners);
         }
 
         if (choosenPiece.getAttribute('class') === 'whitePawn placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackPawn placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             pawn.availablePawnMoves(choosenPiece);
+            document.querySelector('.chessboard').addEventListener('click', pawn.canMove);
             choosenPiece.addEventListener('click', pawn.clearEventListeners);
         }
 
         if (choosenPiece.getAttribute('class') === 'whiteQueen placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackQueen placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             queen.availableQueenMoves(choosenPiece);
+            document.querySelector('.chessboard').addEventListener('click', queen.canMove);
             choosenPiece.addEventListener('click', queen.clearEventListeners);
         }
 
@@ -94,7 +99,6 @@ const renderPiece = {
             king.availableKingMoves(choosenPiece);
             choosenPiece.addEventListener('click', king.clearEventListeners);
         }
-    
     },
 
     switchTurn() {

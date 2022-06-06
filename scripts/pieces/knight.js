@@ -48,8 +48,8 @@ const knight = {
             cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
             knight.possibleMoves.push(cellField);
         }
-
-        document.querySelector('.chessboard').addEventListener('click', knight.canMove);
+        
+        return filteredCanMoveArr;
     },
 
     getKnightPropeties(choosenPiece) {

@@ -113,7 +113,7 @@ const pawn = {
             pawn.possibleMoves.push(cellField);
         }
 
-        document.querySelector('.chessboard').addEventListener('click', pawn.canMove);
+        return filteredCanMoveArr;
     },
     getPawnPropeties(choosenPiece) {
         pawn.currentPawn = renderPiece.pieces[choosenPiece.parentNode.getAttribute('id')];

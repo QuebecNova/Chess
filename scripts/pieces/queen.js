@@ -77,12 +77,6 @@ const queen = {
             }
         });
 
-        for (const cell in filteredBRTLArr) {
-            const cellField = document.querySelector(`#${filteredBRTLArr[cell]}`);
-            cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
-            queen.possibleMoves.push(cellField);
-        }
-
         //for diagonal bottom-left to right
         const BLTRArr = [];
 
@@ -149,12 +143,6 @@ const queen = {
                 return cell;
             }
         });
-
-        for (const cell in filteredBLTRArr) {
-            const cellField = document.querySelector(`#${filteredBLTRArr[cell]}`);
-            cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
-            queen.possibleMoves.push(cellField);
-        }
 
         //idea behind this calculations (both for rows and columns):
         //if same color piece on the way stop calculations and/or delete previous calculations
@@ -269,13 +257,23 @@ const queen = {
             }
         });
 
-        for (const row in filteredRowArr) {
-            const rowField = document.querySelector(`#${filteredRowArr[row]}`);
-            rowField.style.backgroundColor = 'rgba(30,150,30,0.4)';
-            queen.possibleMoves.push(rowField);
+        //adding all possible movements from arrays of each type of moving to filtered can move array
+        const filteredCanMoveArr = [];
+
+        filteredColArr.forEach(cell => filteredCanMoveArr.push(cell));
+        filteredBLTRArr.forEach(cell => filteredCanMoveArr.push(cell));
+        filteredBRTLArr.forEach(cell => filteredCanMoveArr.push(cell));
+        filteredRowArr.forEach(cell => filteredCanMoveArr.push(cell));
+
+        console.log(filteredCanMoveArr);
+
+        for (const cell in filteredCanMoveArr) {
+            const cellField = document.querySelector(`#${filteredCanMoveArr[cell]}`);
+            cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
+            queen.possibleMoves.push(cellField);
         }
 
-        document.querySelector('.chessboard').addEventListener('click', queen.canMove);
+        return filteredCanMoveArr;
     },
 
     getQueenPropeties(choosenPiece) {

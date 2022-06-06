@@ -66,12 +66,6 @@ const rook = {
                 return col[1];
             }
         });
-
-        for (const col in filteredColArr) {
-            const colField = document.querySelector(`#${filteredColArr[col]}`);
-            colField.style.backgroundColor = 'rgba(30,150,30,0.4)';
-            rook.possibleMoves.push(colField);
-        }
         
         //For rows
         const rowArr = [];
@@ -124,13 +118,19 @@ const rook = {
             }
         });
 
-        for (const row in filteredRowArr) {
-            const rowField = document.querySelector(`#${filteredRowArr[row]}`);
-            rowField.style.backgroundColor = 'rgba(30,150,30,0.4)';
-            rook.possibleMoves.push(rowField);
+        //adding all possible movements from arrays of each type of moving to filtered can move array
+        const filteredCanMoveArr = [];
+
+        filteredColArr.forEach(cell => filteredCanMoveArr.push(cell));
+        filteredRowArr.forEach(cell => filteredCanMoveArr.push(cell));
+
+        for (const cell in filteredCanMoveArr) {
+            const cellField = document.querySelector(`#${filteredCanMoveArr[cell]}`);
+            cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
+            rook.possibleMoves.push(cellField);
         }
 
-        document.querySelector('.chessboard').addEventListener('click', rook.canMove);
+        return filteredCanMoveArr;
     },
 
     getRookPropeties(choosenPiece) {
