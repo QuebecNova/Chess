@@ -12,7 +12,7 @@ const pawn = {
     availablePawnMoves(choosenPiece) {
         pawn.getPawnPropeties(choosenPiece);
 
-        this.possibleMoves = [];
+        pawn.possibleMoves = [];
 
         const position = pawn.currentPawn.position;
         
