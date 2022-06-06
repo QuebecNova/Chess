@@ -11,7 +11,6 @@ const pawn = {
     
     availablePawnMoves(choosenPiece) {
         pawn.getPawnPropeties(choosenPiece);
-        console.log(pawn.currentPawn);
 
         const position = pawn.currentPawn.position;
         
