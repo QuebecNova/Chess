@@ -12,6 +12,8 @@ const pawn = {
     availablePawnMoves(choosenPiece) {
         pawn.getPawnPropeties(choosenPiece);
 
+        this.possibleMoves = [];
+
         const position = pawn.currentPawn.position;
         
         const pawnInitialPositions = [];
@@ -74,7 +76,8 @@ const pawn = {
             }
         });
 
-        //adding to possible pawn movements eating pawns that on top-left and top-right side of the pawn
+        //adding to possible pawn movements eating pieces that on top-left and top-right side of the pawn
+        const pawnAttackFields = [];
         let pieceFieldLeft = '';
         let pieceFieldRight = '';
 
@@ -86,6 +89,7 @@ const pawn = {
         }
 
         if (pieceFieldLeft) {
+            pawnAttackFields.push(left);
             if (pieceFieldLeft.hasChildNodes()) {
                 const isAnotherColorOnTheWayLeft = (pieceFieldLeft.children[0].getAttribute('class').slice(0, 5) !== pawn.currentPawn.color);
             
@@ -97,6 +101,7 @@ const pawn = {
         }
         
         if (pieceFieldRight) {
+            pawnAttackFields.push(right);
             if (pieceFieldRight.hasChildNodes()) {
                 const isAnotherColorOnTheWayRight = (pieceFieldRight.children[0].getAttribute('class').slice(0, 5) !== pawn.currentPawn.color);
             
@@ -109,14 +114,20 @@ const pawn = {
 
         for (const cell in filteredCanMoveArr) {
             const cellField = filteredCanMoveArr[cell];
-            cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
             pawn.possibleMoves.push(cellField);
         }
 
-        return filteredCanMoveArr;
+        return pawnAttackFields;
     },
+
     getPawnPropeties(choosenPiece) {
         pawn.currentPawn = renderPiece.pieces[choosenPiece.parentNode.getAttribute('id')];
+    },
+
+    addingPossibleMovesOnBoard() {
+        for (const cell in this.possibleMoves) {
+            this.possibleMoves[cell].style.backgroundColor = 'rgba(30,150,30,0.4)';
+        }
     },
 
     canMove(e) {

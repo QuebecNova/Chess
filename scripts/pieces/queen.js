@@ -11,6 +11,8 @@ const queen = {
     availableQueenMoves(choosenPiece) {
         queen.getQueenPropeties(choosenPiece);
 
+        queen.possibleMoves = [];
+
         //for diagonal bottom-right to left
         const BRTLArr = [];
 
@@ -269,7 +271,6 @@ const queen = {
 
         for (const cell in filteredCanMoveArr) {
             const cellField = document.querySelector(`#${filteredCanMoveArr[cell]}`);
-            cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
             queen.possibleMoves.push(cellField);
         }
 
@@ -278,6 +279,12 @@ const queen = {
 
     getQueenPropeties(choosenPiece) {
         queen.currentQueen = renderPiece.pieces[choosenPiece.parentNode.getAttribute('id')];
+    },
+
+    addingPossibleMovesOnBoard() {
+        for (const cell in this.possibleMoves) {
+            this.possibleMoves[cell].style.backgroundColor = 'rgba(30,150,30,0.4)';
+        }
     },
 
     canMove(e) {

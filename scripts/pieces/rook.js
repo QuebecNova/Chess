@@ -11,6 +11,8 @@ const rook = {
     availableRookMoves(choosenPiece) {
         rook.getRookPropeties(choosenPiece);
 
+        rook.possibleMoves = [];
+
         //idea behind this calculations (both for rows and columns):
         //if same color piece on the way stop calculations and/or delete previous calculations
         //if another color piece on the way include it and stop calculation and/or delete previous calculations
@@ -126,7 +128,6 @@ const rook = {
 
         for (const cell in filteredCanMoveArr) {
             const cellField = document.querySelector(`#${filteredCanMoveArr[cell]}`);
-            cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
             rook.possibleMoves.push(cellField);
         }
 
@@ -135,6 +136,12 @@ const rook = {
 
     getRookPropeties(choosenPiece) {
         rook.currentRook = renderPiece.pieces[choosenPiece.parentNode.getAttribute('id')];
+    },
+
+    addingPossibleMovesOnBoard() {
+        for (const cell in this.possibleMoves) {
+            this.possibleMoves[cell].style.backgroundColor = 'rgba(30,150,30,0.4)';
+        }
     },
 
     canMove(e) {

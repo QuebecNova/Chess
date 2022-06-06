@@ -11,6 +11,8 @@ const bishop = {
     availableBishopMoves(choosenPiece) {
         bishop.getBishopPropeties(choosenPiece);
 
+        bishop.possibleMoves = [];
+
         //for diagonal bottom-right to left
         const BRTLArr = [];
 
@@ -152,7 +154,6 @@ const bishop = {
 
         for (const cell in filteredCanMoveArr) {
             const cellField = document.querySelector(`#${filteredCanMoveArr[cell]}`);
-            cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
             bishop.possibleMoves.push(cellField);
         }
 
@@ -161,6 +162,12 @@ const bishop = {
 
     getBishopPropeties(choosenPiece) {
         bishop.currentBishop = renderPiece.pieces[choosenPiece.parentNode.getAttribute('id')];
+    },
+
+    addingPossibleMovesOnBoard() {
+        for (const cell in this.possibleMoves) {
+            this.possibleMoves[cell].style.backgroundColor = 'rgba(30,150,30,0.4)';
+        }
     },
 
     canMove(e) {

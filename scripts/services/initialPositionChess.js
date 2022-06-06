@@ -3,7 +3,7 @@ const initialPosition = {
     b8: 'blackKnight',
     c8: 'blackBishop',
     d8: 'blackQueen',
-    //e8: 'blackKing',
+    e8: 'blackKing',
     f8: 'blackBishop',
     g8: 'blackKnight',
     h8: 'blackRook',
@@ -30,7 +30,7 @@ const initialPosition = {
     b1: 'whiteKnight',
     c1: 'whiteBishop',
     d1: 'whiteQueen',
-    //e1: 'whiteKing',
+    e1: 'whiteKing',
     f1: 'whiteBishop',
     g1: 'whiteKnight',
     h1: 'whiteRook'

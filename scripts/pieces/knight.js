@@ -10,6 +10,9 @@ const knight = {
     
     availableKnightMoves(choosenPiece) {
         knight.getKnightPropeties(choosenPiece);
+
+        knight.possibleMoves = [];
+
         const position = knight.currentKnight.position;
 
         const canMoveArr = [];
@@ -45,7 +48,6 @@ const knight = {
 
         for (const cell in filteredCanMoveArr) {
             const cellField = document.querySelector(`#${filteredCanMoveArr[cell]}`);
-            cellField.style.backgroundColor = 'rgba(30,150,30,0.4)';
             knight.possibleMoves.push(cellField);
         }
         
@@ -54,6 +56,12 @@ const knight = {
 
     getKnightPropeties(choosenPiece) {
         knight.currentKnight = renderPiece.pieces[choosenPiece.parentNode.getAttribute('id')];
+    },
+
+    addingPossibleMovesOnBoard() {
+        for (const cell in this.possibleMoves) {
+            this.possibleMoves[cell].style.backgroundColor = 'rgba(30,150,30,0.4)';
+        }
     },
 
     canMove(e) {

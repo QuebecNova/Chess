@@ -3,6 +3,7 @@ import initialPosition from "./initialPositionChess.js";
 import rook from "../pieces/rook.js";
 import bishop from "../pieces/bishop.js";
 import knight from "../pieces/knight.js";
+import king from "../pieces/king.js";
 import queen from "../pieces/queen.js";
 import pawn from "../pieces/pawn.js";
 import Piece from "../pieces/Piece.js";
@@ -64,12 +65,14 @@ const renderPiece = {
             renderPiece.removeClickEvents();
             rook.availableRookMoves(choosenPiece);
             document.querySelector('.chessboard').addEventListener('click', rook.canMove);
+            rook.addingPossibleMovesOnBoard();
             choosenPiece.addEventListener('click', rook.clearEventListeners);
         }
         if (choosenPiece.getAttribute('class') === 'whiteBishop placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackBishop placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             bishop.availableBishopMoves(choosenPiece);
             document.querySelector('.chessboard').addEventListener('click', bishop.canMove);
+            bishop.addingPossibleMovesOnBoard();
             choosenPiece.addEventListener('click', bishop.clearEventListeners);
         }
 
@@ -77,6 +80,7 @@ const renderPiece = {
             renderPiece.removeClickEvents();
             knight.availableKnightMoves(choosenPiece);
             document.querySelector('.chessboard').addEventListener('click', knight.canMove);
+            knight.addingPossibleMovesOnBoard();
             choosenPiece.addEventListener('click', knight.clearEventListeners);
         }
 
@@ -84,6 +88,7 @@ const renderPiece = {
             renderPiece.removeClickEvents();
             pawn.availablePawnMoves(choosenPiece);
             document.querySelector('.chessboard').addEventListener('click', pawn.canMove);
+            pawn.addingPossibleMovesOnBoard();
             choosenPiece.addEventListener('click', pawn.clearEventListeners);
         }
 
@@ -91,12 +96,14 @@ const renderPiece = {
             renderPiece.removeClickEvents();
             queen.availableQueenMoves(choosenPiece);
             document.querySelector('.chessboard').addEventListener('click', queen.canMove);
+            queen.addingPossibleMovesOnBoard();
             choosenPiece.addEventListener('click', queen.clearEventListeners);
         }
 
         if (choosenPiece.getAttribute('class') === 'whiteKing placedPiece' && renderPiece.turn === 'white' || choosenPiece.getAttribute('class') === 'blackKing placedPiece' && renderPiece.turn === 'black') {
             renderPiece.removeClickEvents();
             king.availableKingMoves(choosenPiece);
+            document.querySelector('.chessboard').addEventListener('click', king.canMove);
             choosenPiece.addEventListener('click', king.clearEventListeners);
         }
     },
