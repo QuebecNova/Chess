@@ -72,13 +72,26 @@ const king = {
     },
 
     isKingOnCheck() {
+        king.callingFieldsOnAttack(renderPiece.turn);
+        
         let check = false;
+        let kingOpposite = '';
+        
+        if (renderPiece.turn === 'black') {
+            kingOpposite = document.querySelector('.blackKing')
+        } else {
+            kingOpposite = document.querySelector('.whiteKing')
+        }
+        
+        king.getKingPropeties(kingOpposite);
+        
         for (const field in fieldsOnAttack.fieldsOnAttackArr) {
             if (fieldsOnAttack.fieldsOnAttackArr[field] === king.currentKing.position) {
                 king.onCheck = true;
                 check = true;
             }
         }
+
         return check;
     },
 
