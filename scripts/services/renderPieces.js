@@ -8,7 +8,6 @@ import queen from "../pieces/queen.js";
 import pawn from "../pieces/pawn.js";
 import Piece from "../pieces/Piece.js";
 import chessConfig from "../configs/chessConfig.js";
-import fieldsOnAttack from "../pieces/checkAndMateHandler.js";
 
 
 const renderPiece = {
