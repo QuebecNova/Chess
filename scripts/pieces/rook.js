@@ -173,8 +173,6 @@ const rook = {
             canMoveArrForKing.push(kingCantMoveHereArr[cell]);
         }
 
-        console.log(kingCantMoveHereArr);
-
         return canMoveArrForKing;
     },
 

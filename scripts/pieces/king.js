@@ -18,6 +18,8 @@ const king = {
 
         const position = king.currentKing.position;
         
+        const kingCantMoveHereArr = [];
+
         const canMoveArr = [];
         canMoveArr.push(position[0] + (parseInt(position[1]) + 1));
         canMoveArr.push(alphPosOut[alphPosIn[position[0]] + 1] + (parseInt(position[1]) + 1));
@@ -43,7 +45,9 @@ const king = {
                     const isAnotherColorOnTheWay = (cellField.children[0].getAttribute('class').slice(0, 5) !== king.currentKing.color);
                     const isSameColorOnTheWay = (cellField.children[0]. getAttribute('class').slice(0, 5) === king.currentKing.color);
                     
-                    if (isSameColorOnTheWay) continue;
+                    if (isSameColorOnTheWay) {
+                        kingCantMoveHereArr.push(canMoveArr[cell])
+                    }
 
                     if (isAnotherColorOnTheWay) {
                         filteredCanMoveArr.push(canMoveArr[cell])
@@ -58,6 +62,10 @@ const king = {
         for (const cell in filteredCanMoveArr) {
             const cellField = document.querySelector(`#${filteredCanMoveArr[cell]}`);
             king.possibleMoves.push(cellField);
+        }
+
+        for (const field in kingCantMoveHereArr) {
+            filteredCanMoveArr.push(kingCantMoveHereArr[field]);
         }
 
         return filteredCanMoveArr;
