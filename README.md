@@ -1,4 +1,4 @@
 # Chess
 standart chess game
 
-You can change starting positions in services/initialPositionChess.js
+You can change starting positions in scripts/services/initialPositionChess.js
