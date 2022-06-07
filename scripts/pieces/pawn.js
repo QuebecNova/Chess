@@ -67,12 +67,14 @@ const pawn = {
         const filteredCanMoveArr = [];
         let pawnOnTheWay = '';
         canMoveArr.forEach(cell => {
-            const cellField = document.querySelector(`#${cell}`);
-            if ((cellField.hasChildNodes())) {
-                pawnOnTheWay = cell;
-            } 
-            if (!(cellField.hasChildNodes()) && !(pawnOnTheWay)) {
-                filteredCanMoveArr.push(cellField);
+            if (document.querySelector(`#${cell}`)) {
+                const cellField = document.querySelector(`#${cell}`);
+                if ((cellField.hasChildNodes())) {
+                    pawnOnTheWay = cell;
+                } 
+                if (!(cellField.hasChildNodes()) && !(pawnOnTheWay)) {
+                    filteredCanMoveArr.push(cellField);
+                }
             }
         });
 

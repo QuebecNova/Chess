@@ -7,10 +7,11 @@ import pawn from "./pawn.js";
 
 const fieldsOnAttack = {
 
-    fieldsOnAttack: [],
+    fieldsOnAttackArr: [],
     
-    isFieldsOnAttack(kingColor) {
-        console.log(kingColor);
+    isFieldsOnAttack(turn) {
+
+        this.fieldsOnAttackArr = [];
 
         const pawnsAttackFields = [];
         const bishopsAttackFields = [];
@@ -19,7 +20,7 @@ const fieldsOnAttack = {
         const rooksAttackFields = [];
         const queensAttackFields = [];
 
-        if (kingColor === 'black') {
+        if (turn === 'black') {
             const allWhiteKnights = [...document.querySelectorAll('.whiteKnight')];
             for (const knightPiece in allWhiteKnights) {
                 const knightAttackFieldsArr = knight.availableKnightMoves(allWhiteKnights[knightPiece]);
@@ -55,16 +56,21 @@ const fieldsOnAttack = {
                     pawnsAttackFields.push(pawnAttackFieldsArr[field]);
                 }
             }
+            const whiteKing = document.querySelector('.whiteKing');
+            const kingAttackFieldsArr = king.availableKingMoves(whiteKing);
+            for (const field in kingAttackFieldsArr) {
+                kingsAttackFields.push(kingAttackFieldsArr[field]);
+            }
             
-            rooksAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
-            bishopsAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
-            knightsAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
-            kingsAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
-            queensAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
-            pawnsAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
+            rooksAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
+            bishopsAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
+            knightsAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
+            kingsAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
+            queensAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
+            pawnsAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
         }
 
-        if (kingColor === 'white') {
+        if (turn === 'white') {
             const allBlackKnights = [...document.querySelectorAll('.blackKnight')];
             for (const knightPiece in allBlackKnights) {
                 const knightAttackFieldsArr = knight.availableKnightMoves(allBlackKnights[knightPiece]);
@@ -100,25 +106,27 @@ const fieldsOnAttack = {
                     pawnsAttackFields.push(pawnAttackFieldsArr[field]);
                 }
             }
+            const blackKing = document.querySelector('.blackKing');
+            const kingAttackFieldsArr = king.availableKingMoves(blackKing);
+            for (const field in kingAttackFieldsArr) {
+                kingsAttackFields.push(kingAttackFieldsArr[field]);
+            }
             
-            rooksAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
-            bishopsAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
-            knightsAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
-            kingsAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
-            queensAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
-            pawnsAttackFields.forEach(cell => this.fieldsOnAttack.push(cell));
+            rooksAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
+            bishopsAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
+            knightsAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
+            kingsAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
+            queensAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
+            pawnsAttackFields.forEach(cell => this.fieldsOnAttackArr.push(cell));
         }
 
-        for (const field in this.fieldsOnAttack) {
-            if (this.fieldsOnAttack[field]) {
-                const pieceField = document.querySelector(`#${this.fieldsOnAttack[field]}`)
-                pieceField.style.backgroundColor = 'red';
+        for (const field in this.fieldsOnAttackArr) {
+            if (document.querySelector(`#${this.fieldsOnAttackArr[field]}`)) {
+                const fieldP = document.querySelector(`#${this.fieldsOnAttackArr[field]}`);
+                fieldP.style.backgroundColor = 'red';
             }
         }
-
-        console.log(this.fieldsOnAttack);
-        this.fieldsOnAttack = [];
-    }
+    },
 }
 
 export default fieldsOnAttack;

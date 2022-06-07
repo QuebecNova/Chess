@@ -13,6 +13,8 @@ const rook = {
 
         rook.possibleMoves = [];
 
+        const kingCantMoveHereArr = [];
+
         //idea behind this calculations (both for rows and columns):
         //if same color piece on the way stop calculations and/or delete previous calculations
         //if another color piece on the way include it and stop calculation and/or delete previous calculations
@@ -25,7 +27,7 @@ const rook = {
 
             let colField = '';
 
-            let col = rook.currentRook.position[0] + (i+1);
+            let col = rook.currentRook.position[0] + (i + 1);
 
             if (rook.currentRook.position === col) {
                 col = ''
@@ -38,14 +40,15 @@ const rook = {
             if (col && colField.hasChildNodes()) {
                 const isAnotherColorOnTheWay = (colField.children[0].getAttribute('class').slice(0, 5) !== rook.currentRook.color);
                 const isSameColorOnTheWay = (colField.children[0].getAttribute('class').slice(0, 5) === rook.currentRook.color);
-                //checks for case when rook is below another rook
+                //checks for case when rook is below another ]
                 if (rook.currentRook.position[1] < col[1] && isSameColorOnTheWay) {
                     i = 8;
+                    kingCantMoveHereArr.push(col);
                     col = '';
                 } else if (rook.currentRook.position[1] < col[1] && isAnotherColorOnTheWay) {
                     i = 8;
                 }
-                //checks for case when rook is under another rook
+                //checks for case when rook is under another piece
                 if (rook.currentRook.position[1] > col[1] && isSameColorOnTheWay) {
                     colHighest = i;
                 } else if (rook.currentRook.position[1] > col[1] && isAnotherColorOnTheWay) {
@@ -68,7 +71,7 @@ const rook = {
                 return col[1];
             }
         });
-        
+
         //For rows
         const rowArr = [];
         let rowHighest = '';
@@ -92,6 +95,7 @@ const rook = {
                 //checks for case when rook is left another rook
                 if (alphPosIn[rook.currentRook.position[0]] < alphPosIn[row[0]] && isSameColorOnTheWay) {
                     i = 8;
+                    kingCantMoveHereArr.push(row);
                     row = '';
                 } else if (alphPosIn[rook.currentRook.position[0]] < alphPosIn[row[0]] && isAnotherColorOnTheWay) {
                     i = 8;
@@ -126,12 +130,52 @@ const rook = {
         filteredColArr.forEach(cell => filteredCanMoveArr.push(cell));
         filteredRowArr.forEach(cell => filteredCanMoveArr.push(cell));
 
+        
         for (const cell in filteredCanMoveArr) {
             const cellField = document.querySelector(`#${filteredCanMoveArr[cell]}`);
             rook.possibleMoves.push(cellField);
         }
+        
+        //section for king, where we define on which field king can't move
+        const canMoveArrForKing = filteredCanMoveArr;
 
-        return filteredCanMoveArr;
+        for (const col in colArr) {
+            if (colHighest <= parseInt(colArr[col][1] - 1) && colArr[col]) {
+                kingCantMoveHereArr.push(colArr[col]);
+            }
+        }
+
+        for (const row in rowArr) {
+            if (rowHighest <= alphPosIn[rowArr[row][0]] && rowArr[row]) {
+                kingCantMoveHereArr.push(rowArr[row]);
+            }
+        }
+
+        for (const row in rowArr) {
+            if (rowArr[row]) {
+                const rowField = document.querySelector(`#${rowArr[row]}`);
+                if (rowField.hasChildNodes() && rowField.children[0].getAttribute('class').includes('King')) {
+                    kingCantMoveHereArr.push(alphPosOut[alphPosIn[rowArr[row][0]] + 1] + rowArr[row][1]);
+                }    
+            }
+        }
+
+        for (const col in colArr) {
+            if (colArr[col]) {
+                const colField = document.querySelector(`#${colArr[col]}`);
+                if (colField.hasChildNodes() && colField.children[0].getAttribute('class').includes('King')) {
+                    kingCantMoveHereArr.push(colArr[col][0] + (parseInt(colArr[col][1]) - 1));
+                }
+            }
+        }
+
+        for (const cell in kingCantMoveHereArr) {
+            canMoveArrForKing.push(kingCantMoveHereArr[cell]);
+        }
+
+        console.log(kingCantMoveHereArr);
+
+        return canMoveArrForKing;
     },
 
     getRookPropeties(choosenPiece) {

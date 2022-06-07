@@ -13,6 +13,8 @@ const bishop = {
 
         bishop.possibleMoves = [];
 
+        const kingCantMoveHereArr = [];
+
         //for diagonal bottom-right to left
         const BRTLArr = [];
 
@@ -50,6 +52,7 @@ const bishop = {
                 //checks for case when bishop is under another piece
                 if (bishop.currentBishop.position[1] > diagonalBRTL[1] && isSameColorOnTheWay) {
                     i = 8;
+                    kingCantMoveHereArr.push(diagonalBRTL);
                     diagonalBRTL = '';
                 } else if (bishop.currentBishop.position[1] > diagonalBRTL[1] && isAnotherColorOnTheWay) {
                     i = 8;
@@ -57,6 +60,7 @@ const bishop = {
                 //checks for case when bishop is below another piece
                 if (bishop.currentBishop.position[1] < diagonalBRTL[1] && isSameColorOnTheWay && !diagonalBRTLHighest) {
                     diagonalBRTLHighest = parseInt(diagonalBRTLField.getAttribute('id')[1]) - 1;
+                    kingCantMoveHereArr.push(diagonalBRTL);
                 } else if (bishop.currentBishop.position[1] < diagonalBRTL[1] && isAnotherColorOnTheWay && !diagonalBRTLHighestSecond) {
                     diagonalBRTLHighestSecond = parseInt(diagonalBRTLField.getAttribute('id')[1]);
                 }
@@ -116,6 +120,7 @@ const bishop = {
                 //checks for case when bishop is under another piece
                 if (bishop.currentBishop.position[1] > diagonalBLTR[1] && isSameColorOnTheWay) {
                     i = 8;
+                    kingCantMoveHereArr.push(diagonalBLTR);
                     diagonalBLTR = '';
                 } else if (bishop.currentBishop.position[1] > diagonalBLTR[1] && isAnotherColorOnTheWay) {  
                     i = 8;
@@ -123,6 +128,7 @@ const bishop = {
                 //checks for case when bishop is below another piece
                 if (bishop.currentBishop.position[1] < diagonalBLTR[1] && isSameColorOnTheWay && !diagonalBLTRHighest) {
                     diagonalBLTRHighest = parseInt(diagonalBLTRField.getAttribute('id')[1]) - 1;
+                    kingCantMoveHereArr.push(diagonalBLTR);
                 } else if (bishop.currentBishop.position[1] < diagonalBLTR[1] && isAnotherColorOnTheWay && !diagonalBLTRHighestSecond) {
                     diagonalBLTRHighestSecond = parseInt(diagonalBLTRField.getAttribute('id')[1]);
                 }
@@ -157,7 +163,32 @@ const bishop = {
             bishop.possibleMoves.push(cellField);
         }
 
-        return filteredCanMoveArr;
+        //section for king
+        const canMoveArrForKing = filteredCanMoveArr;
+
+        for (const diagonalBLTR in BLTRArr) {
+            if (BLTRArr[diagonalBLTR]) {
+                const diagonalBLTRField = document.querySelector(`#${BLTRArr[diagonalBLTR]}`);
+                if (diagonalBLTRField.hasChildNodes() && diagonalBLTRField.children[0].getAttribute('class').includes('King')) {
+                    kingCantMoveHereArr.push(alphPosOut[alphPosIn[BLTRArr[diagonalBLTR][0]] - 1] + (parseInt(BLTRArr[diagonalBLTR][1]) - 1));
+                }    
+            }
+        }
+
+        for (const diagonalBRTL in BRTLArr) {
+            if (BRTLArr[diagonalBRTL]) {
+                const diagonalBRTLField = document.querySelector(`#${BRTLArr[diagonalBRTL]}`);
+                if (diagonalBRTLField.hasChildNodes() && diagonalBRTLField.children[0].getAttribute('class').includes('King')) {
+                    kingCantMoveHereArr.push(alphPosOut[alphPosIn[BRTLArr[diagonalBRTL][0]] + 1] + (parseInt(BRTLArr[diagonalBRTL][1]) - 1));
+                }    
+            }
+        }
+        
+        for (const cell in kingCantMoveHereArr) {
+            canMoveArrForKing.push(kingCantMoveHereArr[cell])
+        }
+
+        return canMoveArrForKing;
     },
 
     getBishopPropeties(choosenPiece) {

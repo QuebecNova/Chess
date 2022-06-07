@@ -13,6 +13,8 @@ const queen = {
 
         queen.possibleMoves = [];
 
+        const kingCantMoveHereArr = [];
+
         //for diagonal bottom-right to left
         const BRTLArr = [];
 
@@ -50,6 +52,7 @@ const queen = {
                 //checks for case when queen is under another piece
                 if (queen.currentQueen.position[1] > diagonalBRTL[1] && isSameColorOnTheWay) {
                     i = 8;
+                    kingCantMoveHereArr.push(diagonalBRTL);
                     diagonalBRTL = '';
                 } else if (queen.currentQueen.position[1] > diagonalBRTL[1] && isAnotherColorOnTheWay) {
                     i = 8;
@@ -57,6 +60,7 @@ const queen = {
                 //checks for case when queen is below another piece
                 if (queen.currentQueen.position[1] < diagonalBRTL[1] && isSameColorOnTheWay && !diagonalBRTLHighest) {
                     diagonalBRTLHighest = parseInt(diagonalBRTLField.getAttribute('id')[1]) - 1;
+                    kingCantMoveHereArr.push(diagonalBRTL);
                 } else if (queen.currentQueen.position[1] < diagonalBRTL[1] && isAnotherColorOnTheWay && !diagonalBRTLHighestSecond) {
                     diagonalBRTLHighestSecond = parseInt(diagonalBRTLField.getAttribute('id')[1]);
                 }
@@ -116,6 +120,7 @@ const queen = {
                 //checks for case when queen is under another piece
                 if (queen.currentQueen.position[1] > diagonalBLTR[1] && isSameColorOnTheWay) {
                     i = 8;
+                    kingCantMoveHereArr.push(diagonalBLTR);
                     diagonalBLTR = '';
                 } else if (queen.currentQueen.position[1] > diagonalBLTR[1] && isAnotherColorOnTheWay) {  
                     i = 8;
@@ -123,6 +128,7 @@ const queen = {
                 //checks for case when queen is below another piece
                 if (queen.currentQueen.position[1] < diagonalBLTR[1] && isSameColorOnTheWay && !diagonalBLTRHighest) {
                     diagonalBLTRHighest = parseInt(diagonalBLTRField.getAttribute('id')[1]) - 1;
+                    kingCantMoveHereArr.push(diagonalBLTR);
                 } else if (queen.currentQueen.position[1] < diagonalBLTR[1] && isAnotherColorOnTheWay && !diagonalBLTRHighestSecond) {
                     diagonalBLTRHighestSecond = parseInt(diagonalBLTRField.getAttribute('id')[1]);
                 }
@@ -156,9 +162,9 @@ const queen = {
         let colHighestSecond = '';
         for (let i = 0; i < 8; i++) {
 
-            let colField = '';
-
             let col = queen.currentQueen.position[0] + (i+1);
+
+            let colField = '';
 
             if (queen.currentQueen.position === col) {
                 col = ''
@@ -171,14 +177,15 @@ const queen = {
             if (col && colField.hasChildNodes()) {
                 const isAnotherColorOnTheWay = (colField.children[0].getAttribute('class').slice(0, 5) !== queen.currentQueen.color);
                 const isSameColorOnTheWay = (colField.children[0].getAttribute('class').slice(0, 5) === queen.currentQueen.color);
-                //checks for case when queen is below another queen
+                //checks for case when queen is below another piece
                 if (queen.currentQueen.position[1] < col[1] && isSameColorOnTheWay) {
                     i = 8;
+                    kingCantMoveHereArr.push(col);
                     col = '';
                 } else if (queen.currentQueen.position[1] < col[1] && isAnotherColorOnTheWay) {
                     i = 8;
                 }
-                //checks for case when queen is under another queen
+                //checks for case when queen is under another piece
                 if (queen.currentQueen.position[1] > col[1] && isSameColorOnTheWay) {
                     colHighest = i;
                 } else if (queen.currentQueen.position[1] > col[1] && isAnotherColorOnTheWay) {
@@ -201,12 +208,6 @@ const queen = {
                 return col[1];
             }
         });
-
-        for (const col in filteredColArr) {
-            const colField = document.querySelector(`#${filteredColArr[col]}`);
-            colField.style.backgroundColor = 'rgba(30,150,30,0.4)'  ;
-            queen.possibleMoves.push(colField);
-        }
         
         //For rows
         const rowArr = [];
@@ -214,7 +215,7 @@ const queen = {
         let rowHighestSecond = '';
         for (let i = 0; i < 8; i++) {
             let row = alphPosOut[i] + queen.currentQueen.position[1];
-            
+
             let rowField = '';
             
             if (queen.currentQueen.position === row) {
@@ -228,14 +229,15 @@ const queen = {
             if (row && rowField.hasChildNodes()) {
                 const isAnotherColorOnTheWay = (rowField.children[0].getAttribute('class').slice(0, 5) !== queen.currentQueen.color);
                 const isSameColorOnTheWay = (rowField.children[0].getAttribute('class').slice(0, 5) === queen.currentQueen.color);
-                //checks for case when queen is left another queen
+                //checks for case when queen is left another piece
                 if (alphPosIn[queen.currentQueen.position[0]] < alphPosIn[row[0]] && isSameColorOnTheWay) {
                     i = 8;
+                    kingCantMoveHereArr.push(row);
                     row = '';
                 } else if (alphPosIn[queen.currentQueen.position[0]] < alphPosIn[row[0]] && isAnotherColorOnTheWay) {
                     i = 8;
                 }
-                //checks for case when queen is right another queen
+                //checks for case when queen is right another piece
                 if (alphPosIn[queen.currentQueen.position[0]] > alphPosIn[row[0]] && isSameColorOnTheWay) {
                     rowHighest = i;
                 } else if (alphPosIn[queen.currentQueen.position[0]] > alphPosIn[row[0]] && isAnotherColorOnTheWay) {
@@ -267,12 +269,50 @@ const queen = {
         filteredBRTLArr.forEach(cell => filteredCanMoveArr.push(cell));
         filteredRowArr.forEach(cell => filteredCanMoveArr.push(cell));
 
-        console.log(filteredCanMoveArr);
-
         for (const cell in filteredCanMoveArr) {
             const cellField = document.querySelector(`#${filteredCanMoveArr[cell]}`);
             queen.possibleMoves.push(cellField);
         }
+        //section for king, where we define on which field king can't move
+        const canMoveArrForKing = filteredCanMoveArr;
+
+        for (const col in colArr) {
+            if (colHighest <= parseInt(colArr[col][1] - 1) && colArr[col]) {
+                kingCantMoveHereArr.push(colArr[col]);
+            }
+        }
+
+        for (const row in rowArr) {
+            if (rowHighest <= alphPosIn[rowArr[row][0]] && rowArr[row]) {
+                kingCantMoveHereArr.push(rowArr[row]);
+            }
+        }
+
+        for (const row in rowArr) {
+            if (rowArr[row]) {
+                const rowField = document.querySelector(`#${rowArr[row]}`);
+                if (rowField.hasChildNodes() && rowField.children[0].getAttribute('class').includes('King')) {
+                    kingCantMoveHereArr.push(alphPosOut[alphPosIn[rowArr[row][0]] + 1] + rowArr[row][1]);
+                }    
+            }
+        }
+
+        for (const col in colArr) {
+            if (colArr[col]) {
+                const colField = document.querySelector(`#${colArr[col]}`);
+                if (colField.hasChildNodes() && colField.children[0].getAttribute('class').includes('King')) {
+                    kingCantMoveHereArr.push(colArr[col][0] + (parseInt(colArr[col][1]) - 1));
+                }
+            }
+        }
+
+        for (const cell in kingCantMoveHereArr) {
+            canMoveArrForKing.push(kingCantMoveHereArr[cell]);
+        }
+
+        console.log(kingCantMoveHereArr);
+
+        return canMoveArrForKing;
 
         return filteredCanMoveArr;
     },

@@ -6,16 +6,88 @@ import fieldsOnAttack from "./checkAndMateHandler.js";
 const king = {
     
     currentKing: {},
+
+    onCheck: false,
     
     possibleMoves: [],
     
     availableKingMoves(choosenPiece) {
         king.getKingPropeties(choosenPiece);
-        fieldsOnAttack.isFieldsOnAttack(king.currentKing.color);
+        
+        king.possibleMoves = [];
+
+        const position = king.currentKing.position;
+        
+        const canMoveArr = [];
+        canMoveArr.push(position[0] + (parseInt(position[1]) + 1));
+        canMoveArr.push(alphPosOut[alphPosIn[position[0]] + 1] + (parseInt(position[1]) + 1));
+        canMoveArr.push(alphPosOut[alphPosIn[position[0]] + 1] + position[1]);
+        canMoveArr.push(alphPosOut[alphPosIn[position[0]] + 1] + (parseInt(position[1]) - 1));
+        canMoveArr.push(position[0] + (parseInt(position[1]) - 1));
+        canMoveArr.push(alphPosOut[alphPosIn[position[0]] - 1] + (parseInt(position[1]) - 1));
+        canMoveArr.push(alphPosOut[alphPosIn[position[0]] - 1] + position[1]);
+        canMoveArr.push(alphPosOut[alphPosIn[position[0]] - 1] + (parseInt(position[1]) + 1));
+
+        const filteredCanMoveArr = [];
+
+        const fieldOnAttack = fieldsOnAttack.fieldsOnAttackArr;
+
+        for (const cell in canMoveArr) {
+
+            if (fieldOnAttack.includes(canMoveArr[cell])) continue;
+
+            if (document.querySelector(`#${canMoveArr[cell]}`)) {
+                const cellField = document.querySelector(`#${canMoveArr[cell]}`);
+
+                if (cellField.hasChildNodes()) {
+                    const isAnotherColorOnTheWay = (cellField.children[0].getAttribute('class').slice(0, 5) !== king.currentKing.color);
+                    const isSameColorOnTheWay = (cellField.children[0]. getAttribute('class').slice(0, 5) === king.currentKing.color);
+                    
+                    if (isSameColorOnTheWay) continue;
+
+                    if (isAnotherColorOnTheWay) {
+                        filteredCanMoveArr.push(canMoveArr[cell])
+                        continue;
+                    }
+                } else {
+                    filteredCanMoveArr.push(canMoveArr[cell]);
+                }
+            }
+        }
+
+        for (const cell in filteredCanMoveArr) {
+            const cellField = document.querySelector(`#${filteredCanMoveArr[cell]}`);
+            king.possibleMoves.push(cellField);
+        }
+
+        return filteredCanMoveArr;
+    },
+
+    isKingOnCheck() {
+        let check = false;
+        for (const field in fieldsOnAttack.fieldsOnAttackArr) {
+            if (fieldsOnAttack.fieldsOnAttackArr[field] === king.currentKing.position) {
+                king.onCheck = true;
+                check = true;
+            }
+        }
+        return check;
     },
 
     getKingPropeties(choosenPiece) {
         king.currentKing = renderPiece.pieces[choosenPiece.parentNode.getAttribute('id')];
+    },
+
+    addingPossibleMovesOnBoard() {
+        for (const cell in king.possibleMoves) {
+            king.possibleMoves[cell].style.backgroundColor = 'rgba(30,150,30,0.4)';
+        }
+    },
+
+    callingFieldsOnAttack(turn) {
+        const turnKing = document.querySelector(`.${turn}King`)
+        king.getKingPropeties(turnKing)
+        fieldsOnAttack.isFieldsOnAttack(turn);
     },
 
     canMove(e) {

@@ -51,7 +51,7 @@ const knight = {
             knight.possibleMoves.push(cellField);
         }
         
-        return filteredCanMoveArr;
+        return canMoveArr;
     },
 
     getKnightPropeties(choosenPiece) {
